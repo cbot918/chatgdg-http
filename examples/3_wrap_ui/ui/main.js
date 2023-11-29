@@ -8,7 +8,7 @@ function sendID(e) {
     s.setName(e.target.value);
     // console.log(s.getName());
     e.target.value = "";
-    enableDisable("#user_id", true);
+    enableDisable("#user_name", true);
     enableDisable("#message", false);
     connect(s.getName());
   }
@@ -39,7 +39,7 @@ function connect(name) {
   };
 
   ws.onmessage = (e) => {
-    console.log(e.data);
+    console.log(s.getName() + ": " + e.data);
   };
 
   ws.onclose = (e) => {

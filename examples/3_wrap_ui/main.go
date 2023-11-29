@@ -22,6 +22,8 @@ func main() {
 
 func handleWS(w http.ResponseWriter, r *http.Request) {
 
+	clientName := r.URL.Query().Get("name")
+
 	f := NewFrame()
 
 	_, rw, err := Upgrade(w, r)
@@ -36,7 +38,7 @@ func handleWS(w http.ResponseWriter, r *http.Request) {
 		log.Fatal(err)
 	}
 	inMessage := f.DecodeFrame(buf)
-	fmt.Println(string(inMessage))
+	fmt.Println(clientName + ": " + string(inMessage))
 
 	// handle outMessage
 	outMessage := f.EncodeFrame(inMessage)
