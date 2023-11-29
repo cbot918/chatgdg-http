@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WS</title>
+</head>
+<body>
+  <script>
+
+    const ws = new WebSocket("ws://localhost:8787/ws")
+    ws.onopen = ()=>{
+      console.log("ws open")
+      ws.send("hihi")
+    }
+
+
+  </script>
+</body>
+</html>
