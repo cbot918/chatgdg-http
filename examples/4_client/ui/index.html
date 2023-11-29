@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>chatgdg</title>
+</head>
+<body>
+
+  <div class="container">
+    <div>
+      <span>name: </span><input type="text" id="user_name"  onkeydown="sendID(event)"></input>
+      <!-- <input type="button" value="連線" onclick="connect()" /> -->
+    </div>
+
+    <div>
+      <span>msg: </span><input type="text" id="message" onkeydown="sendMessage(event)" disabled></input>
+    </div>
+
+  </div>
+
+  <script src="main.js"></script>
+
+</body>
+</html>
