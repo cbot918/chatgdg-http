@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>chatgdg</title>
+</head>
+<body>
+
+  <script>
+    const ws = new WebSocket("ws://localhost:8889/ws")
+    
+    ws.onopen = () => {
+      console.log("ws opened")
+    }
+    ws.onmessage = () => {
+      console.log("ws messaged")
+    }
+    ws.onerror = (e) => {
+      console.log("ws error")
+      console.log(e)
+    }
+    ws.onclose = () => {
+      console.log("ws closed")
+    }
+
+  </script>
+
+</body>
+</html>

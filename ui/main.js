@@ -16,7 +16,7 @@ function enableDisable(name, state) {
 }
 
 function connect(name) {
-  let url = "ws://localhost:8888";
+  let url = "ws://localhost:8889/ws";
   if (name) {
     url += "?name=" + name;
   }
