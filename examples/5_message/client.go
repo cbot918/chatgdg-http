@@ -2,6 +2,7 @@ package main
 
 import (
 	"bufio"
+	"chatgdg-http/examples/5_message/ws"
 	"net"
 )
 
@@ -9,7 +10,7 @@ type Client struct {
 	ID   string
 	conn net.Conn
 	rw   *bufio.ReadWriter
-	f    *Frame
+	f    *ws.Frame
 	buf  []byte
 }
 
@@ -18,7 +19,7 @@ func NewClient(id string, conn net.Conn, rw *bufio.ReadWriter) *Client {
 		ID:   id,
 		conn: conn,
 		rw:   rw,
-		f:    NewFrame(),
+		f:    ws.NewFrame(),
 		buf:  make([]byte, 4096),
 	}
 }
@@ -57,4 +58,14 @@ func (c *Client) WriteMessage(cm *ChanMsg) (err error) {
 		return err
 	}
 	return err
+}
+
+func (c *Client) ReadMessage() (*ChanMsg, error) {
+	_, err := c.rw.Read(c.buf)
+	if err != nil {
+		return nil, err
+	}
+	bytes := c.f.DecodeFrame(c.buf)
+
+	return DeChanMsg(string(bytes)), nil
 }

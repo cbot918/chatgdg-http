@@ -1,4 +1,4 @@
-package main
+package ws
 
 import (
 	"bufio"
@@ -8,6 +8,8 @@ import (
 	"net"
 	"net/http"
 )
+
+const magicWebSocketGUID = "258EAFA5-E914-47DA-95CA-C5AB0DC85B11"
 
 func Upgrade(w http.ResponseWriter, r *http.Request) (net.Conn, *bufio.ReadWriter, error) {
 	return upgrade(w, r)

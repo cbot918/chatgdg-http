@@ -17,8 +17,11 @@ function sendID(e) {
 function sendMessage(event) {
   if (event.key === "Enter" && ws.readyState === WebSocket.OPEN) {
     let messageInput = document.getElementById("message");
-    let message = messageInput.value;
-    ws.send(message);
+
+    encodedMessage = encode("temp", messageInput.value);
+
+    console.log(encodedMessage);
+    ws.send(encodedMessage);
     messageInput.value = ""; // Clear the input field after sending
   }
 }
@@ -75,6 +78,10 @@ window.s = store();
 
 function decode(m) {
   return m.split(";");
+}
+
+function encode(channel, data) {
+  return channel + ";" + data;
 }
 
 function IsUserCount(type) {
