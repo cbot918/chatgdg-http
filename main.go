@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+
+	"github.com/gin-gonic/gin"
 )
 
 const (
@@ -12,12 +14,16 @@ const (
 )
 
 func main() {
-	http.HandleFunc("/ws", handleWS)
+	router := gin.Default()
+	router.GET("/ws", handleWS)
+
 	fmt.Println(port)
 	http.ListenAndServe(port, nil)
 }
 
-func handleWS(w http.ResponseWriter, r *http.Request) {
+func handleWS(c *gin.Context) {
+	w := c.Writer
+	r := c.Request
 
 	_, _, err := Upgrade(w, r)
 	if err != nil {

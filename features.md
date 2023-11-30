@@ -3,3 +3,4 @@
 3. onetoone chat
 4. group chat
 5. send picture
+6. load test

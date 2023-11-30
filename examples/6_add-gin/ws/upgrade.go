@@ -7,6 +7,8 @@ import (
 	"fmt"
 	"net"
 	"net/http"
+
+	"github.com/gin-gonic/gin"
 )
 
 const magicWebSocketGUID = "258EAFA5-E914-47DA-95CA-C5AB0DC85B11"
@@ -16,6 +18,9 @@ func Upgrade(w http.ResponseWriter, r *http.Request) (net.Conn, *bufio.ReadWrite
 }
 
 func upgrade(w http.ResponseWriter, r *http.Request) (net.Conn, *bufio.ReadWriter, error) {
+
+	// w.WriteHeader(200)
+	// return nil, nil, nil
 
 	fmt.Println("in upgrade")
 
@@ -36,6 +41,8 @@ func upgrade(w http.ResponseWriter, r *http.Request) (net.Conn, *bufio.ReadWrite
 	w.Header().Set("Connection", "Upgrade")
 	w.Header().Set("Sec-WebSocket-Accept", accept)
 	w.WriteHeader(http.StatusSwitchingProtocols)
+	w.(gin.ResponseWriter).WriteHeaderNow()
+	// time.Sleep(time.Second * 1)
 
 	// hijack connection from http request
 	hj, ok := w.(http.Hijacker)
@@ -49,6 +56,8 @@ func upgrade(w http.ResponseWriter, r *http.Request) (net.Conn, *bufio.ReadWrite
 		http.Error(w, "Hijacking failed: "+err.Error(), http.StatusInternalServerError)
 		return nil, nil, fmt.Errorf("hijacking failed")
 	}
+	fmt.Println(conn)
+	fmt.Println(rw)
 
 	return conn, rw, nil
 }
